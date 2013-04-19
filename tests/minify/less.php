@@ -53,9 +53,8 @@ class Minify_LESS_Test extends Unittest_TestCase {
      * @todo a test that validates the css output
      */
     public function test_minify() {
-
         // Minify a less input  
-        $this->assertNotEmpty(Minify::factory("less")->set($this->less_example)->min());
+        Minify::factory("less")->set($this->less_example)->min();
     }
 
 }

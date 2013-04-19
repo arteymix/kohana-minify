@@ -7,7 +7,7 @@ require_once Kohana::find_file("vendor", "lessphp/lessc.inc");
 /**
  * Minifier less.
  * 
- * @see http://leafo.net/lessphp/
+ * @link http://leafo.net/lessphp/
  * 
  * @package Minify
  * @category Drivers

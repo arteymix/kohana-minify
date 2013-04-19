@@ -7,7 +7,7 @@ require_once Kohana::find_file("vendor", "JShrink/src/JShrink/Minifier");
 /**
  * JShrink minification driver.
  *
- * @see https://github.com/tedivm/JShrink
+ * @link https://github.com/tedivm/JShrink
  *
  * @package Minify
  * @category Drivers
