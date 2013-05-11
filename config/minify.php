@@ -8,19 +8,26 @@ return array(
         'js' => 'js/',
         'css' => 'css/',
         'less' => 'less/',
+        'coffee' => 'coffee/',
         'media' => 'media/',
     ),
-    // Binds file type to minification driver
     'driver' => array(
         'js' => 'JShrink',
         'css' => 'cssmin',
-        'less' => 'lessphp'
+        'less' => 'lessphp',
+        'coffee' => 'coffeescript',
+    ),
+    // Extension for outputted format
+    'output_type' => array(
+        'less' => 'css',
+        'coffee' => 'js',
     ),
     // Additional options per driver
     'options' => array(
         'JShrink' => array(),
         'cssmin' => array(),
         'lessphp' => array(),
-        'CSSTidy' => array()
+        'CSSTidy' => array(),
+        'coffeescript' => array(),
     ),
 );

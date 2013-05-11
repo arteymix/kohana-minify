@@ -10,6 +10,21 @@ defined('SYSPATH') OR die('No direct access allowed.');
  */
 abstract class Kohana_Minify_Driver {
 
+    /**
+     * Factory method for minification drivers.
+     * 
+     * @param string $name is the minification driver name. It has to match
+     * the driver exactly.
+     * @param array $options are additionnal options to pass to the driver.
+     * @return \Minify_Driver
+     */
+    public static function factory($name, array $options) {
+
+        $class = "Minify_Driver_$name";
+
+        return new $class($options);
+    }
+
     protected $options;
 
     /**

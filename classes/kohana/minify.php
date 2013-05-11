@@ -21,27 +21,36 @@
  * 			$js = "views/jscript/{$js}?{$build}";
  * 		echo HTML::script($js),"\n";
  * 	}
+ * 
+ * @package Minify
  */
 class Kohana_Minify {
     
        /**
-        *
+        * Internal driver
         * @var Minify_Driver
         */
         protected $driver;
 	
 	protected $type;
+        protected $output_type;
 	protected $file;
 	protected $input       = '';
 	protected $inputLength = 0;
 
 	public function __construct($type)
 	{
+                // Set the input type
 		$this->type = $type;
+                
+                // Set the output type, fallback to input type
+                $output_type = Kohana::$config->load("minify.output_type.$type");
+                $this->output_type = $output_type ? $output_type : $type;
+                
+                // Load the driver
                 $driver = Kohana::$config->load("minify.driver.$type");
-                $class = "Minify_Driver_$driver";
                 $options = Kohana::$config->load("minify.options.$driver");
-                $this->driver = new $class($options);
+                $this->driver = Minify_Driver::factory($driver, $options);
 	}
 	
         /**
@@ -68,7 +77,7 @@ class Kohana_Minify {
 				}
 			}
 			$name = md5(json_encode($m_files));
-			$outfile = Kohana::$config->load('minify.path.media').$name.$build.'.'.$this->type;
+			$outfile = Kohana::$config->load('minify.path.media').$name.$build.'.'.$this->output_type;
 			if ( ! is_file($outfile))
 			{
 				if ( ! is_array($files))

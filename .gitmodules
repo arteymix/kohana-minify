@@ -10,3 +10,6 @@
 [submodule "vendor/CSSTidy"]
 	path = vendor/CSSTidy
 	url = https://github.com/Cerdic/CSSTidy.git
+[submodule "vendor/coffeescript"]
+	path = vendor/coffeescript
+	url = https://github.com/alxlit/coffeescript-php.git
