@@ -22,7 +22,7 @@
  * 		echo HTML::script($js),"\n";
  * 	}
  */
-class Minify_Core {
+class Kohana_Minify {
     
        /**
         *

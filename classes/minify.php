@@ -1,3 +1,5 @@
 <?php
 
-class Minify extends Minify_Core { }
+defined('SYSPATH') OR die('No direct access allowed.');
+
+class Minify extends Kohana_Minify { }

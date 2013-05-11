@@ -1,14 +1,9 @@
 <?php
 
-require_once Kohana::find_file("vendor", "CSSTidy/class.csstidy");
+defined('SYSPATH') OR die('No direct access allowed.');
 
-class Minify_Driver_CSSTidy extends Minify_Driver {
+class Minify_Driver_CSSTidy extends Kohana_Minify_Driver_CSSTidy {
     
-    public function minify($input) {
-        $compiler = new csstidy();
-        $compiler->parse($input);
-        return $compiler->print->formatted();
-    }    
 }
 
 ?>
