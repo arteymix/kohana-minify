@@ -15,12 +15,11 @@ return array(
     'css' => array(
         'path' => 'less/',
         'separator' => '', // No file separator required for css
-        'driver' => 'cssmin',        
+        'driver' => 'cssmin',
         'options' => array()
     ),
     'js' => array(
         'path' => 'js/',
-        'separator' => ' ', // Just a space as dev might omit a ';'
         'driver' => 'JShrink',
         'options' => array(
             'flaggedComments' => FALSE
