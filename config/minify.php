@@ -4,30 +4,32 @@ defined('SYSPATH') OR die('No direct access allowed.');
 
 return array(
     'enabled' => TRUE,
-    'path' => array(
-        'js' => 'js/',
-        'css' => 'css/',
-        'less' => 'less/',
-        'coffee' => 'coffee/',
-        'media' => 'media/',
+    'media_path' => 'media/',
+    // Per-type configurations
+    'coffee' => array(
+        'path' => 'coffee/',
+        'output_type' => 'js',
+        'driver' => 'coffeescript',
+        'options' => array() // Options for driver
     ),
-    'driver' => array(
-        'js' => 'JShrink',
-        'css' => 'cssmin',
-        'less' => 'lessphp',
-        'coffee' => 'coffeescript',
+    'css' => array(
+        'path' => 'less/',
+        'separator' => '', // No file separator required for css
+        'driver' => 'cssmin',        
+        'options' => array()
     ),
-    // Extension for outputted format
-    'output_type' => array(
-        'less' => 'css',
-        'coffee' => 'js',
+    'js' => array(
+        'path' => 'js/',
+        'separator' => ' ', // Just a space as dev might omit a ';'
+        'driver' => 'JShrink',
+        'options' => array(
+            'flaggedComments' => FALSE
+        )
     ),
-    // Additional options per driver
-    'options' => array(
-        'JShrink' => array(),
-        'cssmin' => array(),
-        'lessphp' => array(),
-        'CSSTidy' => array(),
-        'coffeescript' => array(),
+    'less' => array(
+        'path' => 'less/',
+        'output_type' => 'css',
+        'driver' => 'lessphp',
+        'options' => array()
     ),
 );

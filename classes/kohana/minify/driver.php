@@ -18,20 +18,25 @@ abstract class Kohana_Minify_Driver {
      * @param array $options are additionnal options to pass to the driver.
      * @return \Minify_Driver
      */
-    public static function factory($name, array $options) {
+    public static function factory($name, array $options = array()) {
 
         $class = "Minify_Driver_$name";
 
         return new $class($options);
     }
 
+    /**
+     * Array of custom options passed to the minifier.
+     * 
+     * @var array 
+     */
     protected $options;
 
     /**
      * 
      * @param array $options
      */
-    public function __construct(array $options) {
+    public function __construct(array $options = array()) {
         $this->options = $options;
     }
 

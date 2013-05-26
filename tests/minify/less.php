@@ -54,7 +54,7 @@ class Minify_LESS_Test extends Unittest_TestCase {
      */
     public function test_minify() {
         // Minify a less input  
-        Minify::factory("less")->set($this->less_example)->min();
+        Minify_Driver::factory("lessphp")->minify($this->less_example);
     }
 
 }
