@@ -1,6 +1,9 @@
 <?php
 
+defined('SYSPATH') or die('No direct script access.');
+
 /**
+ * Tests for coffeescript minification.
  * 
  * @package Minify
  * @category Tests
@@ -39,8 +42,12 @@ class Minify_CoffeeScript_Test extends Unittest_TestCase {
         cubes = (math.cube num for num in list)
     ';
 
-    public function test_coffeescript() {        
-        Minify_Driver::factory("coffeescript")->minify($this->coffeescript_example);
+    public function test_minify_input() {
+        Minify::factory('coffee')->minify_input($this->coffeescript_example);
+    }
+
+    public function test_CoffeeScript() {
+        Minify_Driver::factory("CoffeeScript")->minify($this->coffeescript_example);
     }
 
 }

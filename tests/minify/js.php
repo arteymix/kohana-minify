@@ -10,7 +10,7 @@ defined('SYSPATH') or die('No direct script access.');
  * @author Guillaume Poirier-Morency <guillaumepoiriermorency>
  */
 class Minify_JS_Test extends Unittest_TestCase {
-    
+
     /**
      * Javascript example taken from http://coffeescript.org
      * 
@@ -64,9 +64,17 @@ class Minify_JS_Test extends Unittest_TestCase {
           return _results;
         })();
     ';
+    
+    public function test_minify_input() {
+        Minify::factory('js')->minify_input($this->js_example);
+    }
 
     public function test_JShrink() {
-        Minify_Driver::factory("JShrink")->minify($this->js_example);
+        Minify_Driver::factory('JShrink')->minify($this->js_example);
+    }
+
+    public function test_JSMin() {
+        Minify_Driver::factory('JSMin')->minify($this->js_example);
     }
 
 }

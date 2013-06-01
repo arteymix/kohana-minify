@@ -2,6 +2,11 @@
 
 defined('SYSPATH') OR die('No direct access allowed.');
 
+/**
+ * Configuration for Minify.
+ * 
+ * @package Minify
+ */
 return array(
     'enabled' => TRUE,
     'media_path' => 'media/',
@@ -22,7 +27,7 @@ return array(
         'path' => 'js/',
         'driver' => 'JShrink',
         'options' => array(
-            'flaggedComments' => FALSE
+            'flaggedComments' => FALSE, // Remove comments
         )
     ),
     'less' => array(

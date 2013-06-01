@@ -8,8 +8,6 @@ defined('SYSPATH') or die('No direct script access.');
  * @package Minify
  * @category Tests
  * @author Guillaume Poirier-Morency <guillaumepoiriermorency@gmail.com>
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License
-
  */
 class Minify_LESS_Test extends Unittest_TestCase {
 
@@ -49,10 +47,14 @@ class Minify_LESS_Test extends Unittest_TestCase {
         }
     ";
 
+    public function test_minify_input() {
+        Minify::factory('less')->minify_input($this->less_example);
+    }
+
     /**
      * @todo a test that validates the css output
      */
-    public function test_minify() {
+    public function test_lessphp() {
         // Minify a less input  
         Minify_Driver::factory("lessphp")->minify($this->less_example);
     }

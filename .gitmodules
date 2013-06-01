@@ -13,3 +13,15 @@
 [submodule "vendor/coffeescript"]
 	path = vendor/coffeescript
 	url = https://github.com/alxlit/coffeescript-php.git
+[submodule "vendor/minify"]
+	path = vendor/minify
+	url = https://code.google.com/p/minify/
+[submodule "vendor/jsmin"]
+	path = vendor/jsmin
+	url = git@github.com:rgrove/jsmin-php.git
+[submodule "vendor/JSMin"]
+	path = vendor/JSMin
+	url = git@github.com:rgrove/jsmin-php.git
+[submodule "vendor/MinifyJS"]
+	path = vendor/MinifyJS
+	url = https://github.com/MinifyJS/MinifyJS.git

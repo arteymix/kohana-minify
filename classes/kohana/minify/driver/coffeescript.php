@@ -2,9 +2,11 @@
 
 defined('SYSPATH') OR die('No direct access allowed.');
 
-require_once Kohana::find_file("vendor", "coffeescript/src/CoffeeScript/Init");
+require_once Kohana::find_file('vendor', 'coffeescript/src/CoffeeScript/Init');
 
-// Load manually
+/**
+ * Load manually
+ */
 CoffeeScript\Init::load();
 
 /**

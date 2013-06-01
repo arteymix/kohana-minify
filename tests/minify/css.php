@@ -34,6 +34,10 @@ class Minify_CSS_Test extends Unittest_TestCase {
           }
     ";
 
+    public function test_minify_input() {
+        Minify::factory('css')->minify_input($this->css_example);
+    }
+
     public function test_cssmin() {
         Minify_Driver::factory("cssmin")->minify($this->css_example);
     }

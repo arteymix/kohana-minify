@@ -31,18 +31,14 @@ class Kohana_Minify {
 
     /**
      * Type of what's being minified.
+     * 
      * @var string
      */
     protected $type;
 
     /**
-     * Internal driver
-     * @var Minify_Driver
-     */
-    protected $driver;
-
-    /**
      * Output type once minified
+     * 
      * @var string 
      */
     protected $output_type;
@@ -53,6 +49,13 @@ class Kohana_Minify {
      * @var string 
      */
     protected $separator = "\r\n";
+
+    /**
+     * Internal driver
+     * 
+     * @var Minify_Driver
+     */
+    protected $driver;
 
     public function __construct($type) {
 
@@ -138,6 +141,12 @@ class Kohana_Minify {
         }
     }
 
+    /**
+     * Minify a given input.
+     * 
+     * @param string $input 
+     * @return string the input minified.
+     */
     public function minify_input($input) {
         return $this->driver->minify($input);
     }
