@@ -5,8 +5,9 @@ defined('SYSPATH') OR die('No direct access allowed.');
 /**
  * Base class for minification drivers.
  * 
- * @package Minify
- * @author Guillaume Poirier-Morency <guillaumepoiriermorency@gmail.com>
+ * @package  Minify
+ * @category Drivers
+ * @author   Guillaume Poirier-Morency <guillaumepoiriermorency@gmail.com>
  */
 abstract class Kohana_Minify_Driver {
 

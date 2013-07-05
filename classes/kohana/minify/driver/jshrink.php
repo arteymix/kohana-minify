@@ -7,11 +7,11 @@ require_once Kohana::find_file("vendor", "JShrink/src/JShrink/Minifier");
 /**
  * JShrink minification driver.
  *
- * @see https://github.com/tedivm/JShrink
+ * @link https://github.com/tedivm/JShrink
  *
- * @package Minify
+ * @package  Minify
  * @category Drivers
- * @license https://github.com/tedivm/JShrink/blob/master/LICENSE
+ * @license  https://github.com/tedivm/JShrink/blob/master/LICENSE
  */
 class Kohana_Minify_Driver_JShrink extends Minify_Driver {
 

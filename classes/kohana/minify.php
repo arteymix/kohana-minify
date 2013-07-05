@@ -3,45 +3,49 @@
 defined('SYSPATH') OR die('No direct access allowed.');
 
 /**
- *  // Minify given string
- *  $min = Minify::factory('js')->minify_input( $filecontents );
- *  $min = Minify::factory('css')->minify_input( $filecontents ); 
+ * Minify
+ * 
+ * Minify given string
+ * 
+ *     $min = Minify::factory('js')->minify_input( $filecontents );
+ *     $min = Minify::factory('css')->minify_input( $filecontents ); 
  *
- *  // Minify list of files; write result into media folder 
- *  Controller::after()  
- * 	$this->template->jsFiles = Minify::factory('js')->minify( $this->template->jsFiles, $build );
- * 	$this->template->cssFiles = Minify::factory('css')->minify( $this->template->cssFiles, $build );
+ * Controller
+ * 
+ *     protected $js = array('foo.js', 'bar.js');
+ *     protected $css = array('foo.css', 'bar.css')
+ *   
+ *     after:
+ *         $this->template->js = Minify::factory('js')->minify($this->js);
+ *         $this->template->css = Minify::factory('css')->minify($this->css);
  *
- *  View: 
- * 	foreach ($cssFiles as $css) {
- * 		if ( ! Kohana::config('minify.enabled') || $debug ) 
- * 			$css = "views/css/{$css}?{$build}";
- * 		echo HTML::style($css),"\n";
- * 	}
- * 	// application js files
- * 	foreach ($jsFiles as $js) { 
- * 		if ( ! Kohana::config('minify.enabled') || $debug ) 
- * 			$js = "views/jscript/{$js}?{$build}";
- * 		echo HTML::script($js),"\n";
- * 	}
+ * View
+ * 
+ *     foreach ($js as $file) {
+ *         echo HTML::script($file);      
+ *     }
+ * 
+ *     foreach ($css as $file) {
+ *         echo HTML::style($file);      
+ *     }
  * 
  * @package Minify
+ * @author  and Guillaume Poirier-Morency <guillaumepoiriermorency@gmail.com>
  */
 class Kohana_Minify {
 
     /**
-     * Type of what's being minified.
+     *
+     * @var string
+     */
+    protected $name = '';
+
+    /**
+     * Extension for the minified file.
      * 
      * @var string
      */
-    protected $type;
-
-    /**
-     * Output type once minified
-     * 
-     * @var string 
-     */
-    protected $output_type;
+    protected $extension;
 
     /**
      * Separator for files.
@@ -51,100 +55,100 @@ class Kohana_Minify {
     protected $separator = "\r\n";
 
     /**
-     * Internal driver
+     * Minification driver.
      * 
      * @var Minify_Driver
      */
     protected $driver;
 
-    public function __construct($type) {
+    public function __construct($name) {
 
         // Set the input type
-        $this->type = $type;
+        $this->extension = $name;
 
-        $this->output_type = $type;
-
-        // Set the output type, fallback to input type
-        if ($output_type = Kohana::$config->load("minify.$type.output_type")) {
-            $this->output_type = $output_type;
+        if ($type = Kohana::$config->load("minify.$type.extension")) {
+            $this->extension = $extension;
         }
 
         // Custom separator, can be blank
-        if (Kohana::$config->load("minify.$type.separator") !== NULL) {
-            $this->separator = Kohana::$config->load("minify.$type.separator");
+        if (Kohana::$config->load("minify.$name.separator") !== NULL) {
+            $this->separator = Kohana::$config->load("minify.$name.separator");
         }
 
         // Load the driver and its options
-        $driver = Kohana::$config->load("minify.$type.driver");
-        $options = Kohana::$config->load("minify.$type.options");
+        $driver = Kohana::$config->load("minify.$name.driver");
+        $options = Kohana::$config->load("minify.$name.options");
         $this->driver = Minify_Driver::factory($driver, $options);
     }
 
     /**
      * 
-     * @param string $type
-     * @return \Minify_Core
+     * @param  string $type
+     * @return Minify
      */
     public static function factory($type) {
         return new Minify($type);
     }
 
+    /**
+     * Minifies a given array of files.
+     * 
+     * @param  array  $files
+     * @param  string $build is a custom build identifier
+     * @return array  a list of minified files
+     */
     public function minify(array $files, $build = '') {
 
-        if (Kohana::$config->load('minify.enabled', FALSE)) {
+        if (Kohana::$config->load('minify.enabled', FALSE) === TRUE) {
 
-            $this->file_modified_timestamps = array();
+            $timestamps = array();
 
+            // Store files timestamps in this object
             foreach ($files as $file) {
-                $this->file_modified_timestamps[$file] = array($file);
-                if (file_exists(Kohana::$config->load("minify.$this->type.path") . $file)) {
-                    $this->file_modified_timestamps[$file][] = filemtime(Kohana::$config->load("minify.$this->type.path") . $file);
+                if (file_exists(($file))) {
+                    $timestamps[$file] = filemtime(Kohana::$config->load("minify.$this->name.path") . $file);
                 }
             }
 
-            // Serialize the state of the minifier (include the state of the driver)
-            $name = md5(serialize($this));
+            // Serialize the state of the minifier including files and driver
+            $name = sha1(serialize($this) . serialize($timestamps));
 
-            $outfile = Kohana::$config->load('minify.media_path') . $name . $build . '.' . $this->output_type;
+            $outfile = Kohana::$config->load('minify.path') . $name . $build . '.' . $this->extension;
 
-            if (!is_file($outfile)) {
+            if (!file_exists($outfile)) {
 
-                if (!is_array($files)) {
-                    $files = array($files);
-                }
+                // Generates an minified file
 
                 $minified = array();
+
                 foreach ($files as $file) {
-                    $_file = Kohana::$config->load("minify.$this->type.path") . $file;
-                    if (is_file($_file)) {
-                        $minified[] = $this->driver->minify(file_get_contents($_file));
+                    $file = Kohana::$config->load("minify.$this->name.path") . $file;
+                    if (file_exists(($file))) {
+                        $minified[] = $this->driver->minify(file_get_contents($file));
                     }
                 }
 
-                // write minified file 
-                $f = fopen($outfile, 'w');
-                if ($f) {
-                    fwrite($f, implode($this->separator, $minified));
-                    fclose($f);
+                if (!file_put_contents($outfile, implode($this->separator, $minified))) {
+                    throw new Kohana_Exception('Could not write to file :outfile.', array(':outfile' => $outfile));
                 }
             }
 
             return array($outfile);
-        } else {
-            foreach ($files as &$file) {
-                if (substr($file, 0, 7) != "http://") {
-                    $file = Kohana::$config->load("minify.$this->type.path") . $file;
-                }
-            }
-
-            return $files;
         }
+
+        foreach ($files as &$file) {
+            if (!preg_match('/^\w+::\/\//', $file)) {
+                $file = Kohana::$config->load("minify.$this->name.path") . $file;
+            }
+        }
+
+        return $files;
     }
 
     /**
      * Minify a given input.
      * 
-     * @param string $input 
+     * @param  string $input 
      * @return string the input minified.
      */
     public function minify_input($input) {

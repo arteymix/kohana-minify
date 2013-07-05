@@ -7,9 +7,9 @@ require_once Kohana::find_file("vendor", "CSSTidy/class.csstidy");
 /**
  * Minification driver for CSSTidy.
  * 
- * @package Minify
+ * @package  Minify
  * @category Drivers
- * @author Guillaume Poirier-Morency <guillaumepoiriermorency@gmail.com>
+ * @author   Guillaume Poirier-Morency <guillaumepoiriermorency@gmail.com>
  */
 class Kohana_Minify_Driver_CSSTidy extends Minify_Driver {
 

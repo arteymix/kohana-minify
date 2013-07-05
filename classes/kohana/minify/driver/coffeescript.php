@@ -14,15 +14,15 @@ CoffeeScript\Init::load();
  * 
  * @link http://coffeescript.org/
  * 
- * @package Minify
+ * @package  Minify
  * @category Drivers
- * @author Guillaume Poirier-Morency <guillaumepoiriermorency@gmail.com>
- * @license MIT
+ * @author   Guillaume Poirier-Morency <guillaumepoiriermorency@gmail.com>
+ * @license  MIT
  */
-class Kohana_Minify_Driver_CoffeeScript extends Minify_Driver_JShrink {
+class Kohana_Minify_Driver_CoffeeScript extends Minify_Driver {
 
     public function minify($input) {
-        return parent::minify(CoffeeScript\Compiler::compile($input));
+        return Minify::factory('js')->minify_input(CoffeeScript\Compiler::compile($input));
     }
 
 }

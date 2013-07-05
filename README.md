@@ -4,25 +4,61 @@ Simple Minify wrapper for Kohana 3. Yet basically tailored to suit my needs in a
 
 ## Usage
 
-    // Minify given string / file contents
-    $min = Minify::factory('js')->set( $filecontents )->min();
-    $min = Minify::factory('css')->set( $filecontents )->min(); 
+### Simplistic
 
-    // Minify list of files; 
-	//write result into media folder as defined in config
-	// use md5 hash of filelist and apps build number as filename
-	
-    Controller::after()  
-    $this->template->jsFiles = Minify::factory('js')->minify( $this->template->jsFiles, $build );
-    $this->template->cssFiles = Minify::factory('css')->minify( $this->template->cssFiles, $build );
+    $minified = Minify::factory('css')->minify(array('foo.css', 'bar.css'));
 
+    foreach ($minified as $file) {
+        echo HTML::style($file);
+    }
+
+### Efficient
+
+    class Controller_Template_Foo {
+
+        protected $js = array('foo.js', 'bar.js');
+        protected $css = array('foo.css', 'bar.css');
+
+        public function after() {
+
+            parent::after();
+
+            $this->template->css = Minify::factory('css')->minify($this->css);
+            $this->template->js = Minify::factory('css')->minify($this>js);
+        }
+
+    }
+
+Then in your template..
+
+    foreach ($css as $file) {
+        echo HTML::style($file);
+    }
+
+    foreach ($js as $file) {
+        echo HTML::script($file);
+    }
+
+### Any input..
+
+    Minify::factory('css')->minify_input('foo {display:none}');
+
+## Configuration
+
+Minify is driver based. Some minification configurations are already setted in
+the configuration file.
+
+path: where the files can be found for this setup
+type: extension of 
 
 ## Credits
 
-BASED ON THE JSMIN CODE BY rgrove: http://code.google.com/p/jsmin-php 
+Based on the Kohana 2 Minify Driver by Tom Morton 
 
-BASED ON THE CSSMIN CODE BY joe.scylla: http://code.google.com/p/cssmin
+Using jsmin by rgrove: http://code.google.com/p/jsmin-php 
 
-BASED ON THE Kohana 2 Minify Driver by Tom Morton 
+Using cssmin by joe.scylla: http://code.google.com/p/cssmin
 
-USING lessphp compiler by leafo: https://github.com/leafo/lessphp
+Using CoffeeScript compiler
+
+Using lessphp compiler by leafo: https://github.com/leafo/lessphp
