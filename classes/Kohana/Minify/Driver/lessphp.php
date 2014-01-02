@@ -34,5 +34,3 @@ class Kohana_Minify_Driver_lessphp extends Minify_Driver {
     }
 
 }
-
-?>

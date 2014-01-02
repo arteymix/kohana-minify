@@ -49,5 +49,3 @@ abstract class Kohana_Minify_Driver {
      */
     public abstract function minify($input);
 }
-
-?>

@@ -2,7 +2,7 @@
 
 defined('SYSPATH') OR die('No direct access allowed.');
 
-require_once Kohana::find_file("vendor", "cssmin/source/CssMin");
+require_once Kohana::find_file('vendor', 'cssmin/source/CssMin');
 
 /**
  * Minification driver for css using cssmin.
@@ -22,4 +22,3 @@ class Kohana_Minify_Driver_cssmin extends Minify_Driver {
 
 }
 
-?>

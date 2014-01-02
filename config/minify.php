@@ -10,32 +10,40 @@ defined('SYSPATH') OR die('No direct access allowed.');
  * @author   Guillaume Poirier-Morency <guillaumepoiriermorency@gmail.com>
  */
 return array(
-    'enabled' => TRUE, // If not enabled, files will be renamed with their paths and returned
+    /**
+     * Enable the minifier.
+     */
+    'enabled' => TRUE,
     'path' => 'assets/media/', // Path for minified files
     // Per-type configurations
     'coffee' => array(
         'path' => 'assets/coffee/',
-        'extension' => 'js', // Optional (defaulted to array key)
-        'driver' => 'coffeescript',
-        'options' => array() // Options for driver
+        'separator' => "\r\n",
+        'extension' => 'js',
+        'driver' => 'CoffeeScript',
+        'driver_options' => array()
     ),
     'css' => array(
-        'path' => 'assets/less/',
+        'path' => 'assets/css/',
         'separator' => '', // No file separator required for css
+        'extension' => 'css',
         'driver' => 'cssmin',
-        'options' => array()
+        'driver_options' => array()
     ),
     'js' => array(
         'path' => 'assets/js/',
+        'separator' => "\r\n",
+        'extension' => 'css',
         'driver' => 'JShrink',
-        'options' => array(
+        'driver_options' => array(
             'flaggedComments' => FALSE, // Remove comments
         )
     ),
     'less' => array(
         'path' => 'assets/less/',
+        'separator' => '',
         'extension' => 'css',
         'driver' => 'lessphp',
-        'options' => array()
-    ),
+        'driver_options' => array()
+    )
 );

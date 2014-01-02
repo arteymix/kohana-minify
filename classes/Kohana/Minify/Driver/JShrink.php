@@ -2,7 +2,7 @@
 
 defined('SYSPATH') OR die('No direct access allowed.');
 
-require_once Kohana::find_file("vendor", "JShrink/src/JShrink/Minifier");
+require_once Kohana::find_file('vendor', 'JShrink/src/JShrink/Minifier');
 
 /**
  * JShrink minification driver.
@@ -20,5 +20,3 @@ class Kohana_Minify_Driver_JShrink extends Minify_Driver {
     }
 
 }
-
-?>

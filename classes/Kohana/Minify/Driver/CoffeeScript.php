@@ -26,5 +26,3 @@ class Kohana_Minify_Driver_CoffeeScript extends Minify_Driver {
     }
 
 }
-
-?>

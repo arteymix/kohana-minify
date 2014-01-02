@@ -2,7 +2,7 @@
 
 defined('SYSPATH') OR die('No direct access allowed.');
 
-require_once Kohana::find_file("vendor", "CSSTidy/class.csstidy");
+require_once Kohana::find_file('vendor', 'CSSTidy/class.csstidy');
 
 /**
  * Minification driver for CSSTidy.
@@ -20,5 +20,3 @@ class Kohana_Minify_Driver_CSSTidy extends Minify_Driver {
     }
 
 }
-
-?>
