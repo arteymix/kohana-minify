@@ -66,7 +66,7 @@ class Kohana_Minify {
         // Set the input type
         $this->extension = $name;
 
-        if ($type = Kohana::$config->load("minify.$type.extension")) {
+        if ($type = Kohana::$config->load("minify.$name.extension")) {
             $this->extension = $extension;
         }
 
